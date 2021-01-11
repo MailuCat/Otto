@@ -17,23 +17,19 @@
         Some quick example text to build on the card title and make up the bulk of the card's
         content.
       </b-card-text>
-    </b-card-body>
+      
+   </b-card-body>
 
     <b-list-group flush >
       <b-list-group-item>Código : {{productos.codigo}} </b-list-group-item>
       <b-list-group-item>Productos {{productos.stock}}</b-list-group-item>
       <b-list-group-item>Precio :{{productos.precio}}</b-list-group-item>
     </b-list-group>
-
     <b-card-body>
-      
-   
-
-   
-      <b-button variant="warning"  >Eliminar</b-button>
-      
-    </b-card-body>
-</b-col>
+      <button type="button" class="btn btn-danger" @click="eliminando(productos.idDoc)">Eliminar</button>
+  
+     </b-card-body>
+    </b-col>
     </b-row>
   </b-card>
 </div>
@@ -42,16 +38,30 @@
 import { mapGetters } from "vuex";
 
 
+
 export default {
     name: 'Tarjetas',
     data() {
       return {
-        modalShow: true
-      }
-    },
+      idProductos: '',
+          nombre: '',
+            codigo: '',
+            stock: '',
+            precio:'',
+            imagen: ''
+        }
+       },
+    
+  
 
     computed: {
     ...mapGetters(['enviarProductos'])
     },
+     methods: {
+      eliminando(productos){
+            this.$store.dispatch('borrandoProductos',productos, idDoc);
+        },
+     }
+            
 }
 </script>

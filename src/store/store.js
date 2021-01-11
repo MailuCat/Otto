@@ -37,6 +37,12 @@ export default new Vuex.Store({
           });
           commit('mutandoProductos', productosLocal);
       })
-    }
+    },
+    agregandoProducto(context,productoNuevo){
+      return firebase.firestore().collection('productos').add({...productoNuevo});
+    },
+    borrandoProductos(context,id){
+      firebase.firestore().collection('productos').doc(context.state.id).collection('productos').doc(id).delete().then(()=>console.log("producto borrado")).catch(error => console.error(error));
+    },
   },
 })
