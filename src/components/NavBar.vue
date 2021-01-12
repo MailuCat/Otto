@@ -1,50 +1,44 @@
 <template>
  <div>
- <div>
+ 
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">Otto Krauss</b-navbar-brand>
+        <b-navbar-brand  href="#">Otto Krauss</b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <router-link to="/">Home</router-link></b-navbar-nav>
-         <b-nav-item :to="{name: 'Editar'}">Editar</b-nav-item>
-      <b-navbar-nav>
+        <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <b-nav-item to="/">Home</b-nav-item>
+              <b-nav-item :to="{name: 'Editar'}">Editar</b-nav-item>
+            </b-navbar-nav>
         
-        </b-navbar-nav>
-
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+        <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
         
-        <b-nav-item-dropdown right>
-           
+                <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>Usuarior</em>
-          </template>
-          <router-link :to="{name: 'Loguin'}">Loguin</router-link>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
-          
-      </b-navbar-nav>
-   <b-button @click="$bvModal.show('modal-scoped')" >Agregar Juguetes</b-button>
-    </b-collapse>
+                    <template #button-content>
+                    <em>Usuarior</em>
+                    </template>
+                        <router-link :to="{name: 'Loguin'}">Loguin</router-link>
+                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                 </b-nav-item-dropdown>
+            </b-navbar-nav>
+              <b-button @click="$bvModal.show('modal-scoped')" >Agregar Juguetes</b-button>
+        </b-collapse>
     </b-navbar>
-    <template>
+  <template>
      <!-- Modal Agregar Usuario-->
-
-  <b-modal id="modal-scoped">
-    <template #modal-header="{ close }">
+   <b-modal id="modal-scoped">
+      <template #modal-header="{ close }">
       <!-- Emulate built in modal header close button action -->
-      <b-button size="sm" variant="outline-danger" @click="close()">
-        Close Modal
-      </b-button>
-      <h5>Forumulario para agregar juguetes</h5>
-    </template>
+          <b-button size="sm" variant="outline-danger" @click="close()">
+            Cerrar
+            </b-button>
+            <h5>Forumulario para agregar juguetes</h5>
+      </template>
 
-    <template #default="{ hide }">
-      <p>Modal Body with button</p>
+        <template #default="{  }">
+            
             <form >
                 <b-form-group label="Name"  label-for="name-input"
                 >
@@ -63,39 +57,31 @@
                 <label>Imagen:</label>
                   <b-form-input v-model="imagen"   type="url"    name="imagen"></b-form-input>
              </form>
-     
-     
-      <b-button @click="hide()">Hide Modal</b-button>
-    </template>
-
-    <template #modal-footer="{validate, cancel, hide }">
+        </template>
+        <template #modal-footer="{ validate, cancel, hide }">
       <b></b>
       <!-- Emulate built in modal footer ok and cancel button actions -->
-      <b-button size="sm" variant="success"  @click.prevent="agregandoProducto">
-        OK
-      </b-button>
-      <b-button size="sm" variant="danger" @click="cancel()">
-        Cancel
-      </b-button>
+          <b-button size="sm" variant="success"  @click.prevent="agregandoProducto">
+              OK
+          </b-button>
+          <b-button size="sm" variant="danger" @click="cancel()">
+            Cancel
+          </b-button>
       <!-- Button with custom close trigger value -->
-      <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
-        Forget it
-      </b-button>
+          <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
+            Forget it
+          </b-button>
+        </template>
+      </b-modal>
     </template>
-  </b-modal>
-</template>
 </div>
- </div>
 </template>
-
 <script>
 import {mapGetters} from 'vuex';
-
 export default {
         name: 'NavBar',
        data() {
         return {
-
             nombre: '',
             codigo: '',
             stock: '',
@@ -128,4 +114,7 @@ export default {
 }
 </script>
 <style>
+   
+
+
 </style>

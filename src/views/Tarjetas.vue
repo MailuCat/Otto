@@ -1,16 +1,20 @@
 <template>
 <div>
-  <b-card   v-for="(productos,index) in enviarProductos" :key="index" no-body class="overflow-hidden" style="max-width: 540px;">
+  <b-container p-5 >
+    <b-row align-v="center">
+      
+  <b-card v-for="(productos,index) in enviarProductos" :key="index" no-body class="overflow-hidden" style="max-width: 540px;">
       <b-row no-gutters>
       <b-col md="6">
         <b-card-img :src="productos.imagen" alt="Image" class="rounded-0"></b-card-img>
       </b-col>
-      <b-col>
+ 
+      <b-col     >
     <template #header>
       <h4 class="mb-0">Hello World</h4>
     </template>
 
-    <b-card-body>
+    <b-card-body >
       <b-card-sub-title class="mb-2">Juego:</b-card-sub-title>
       <b-card-title>{{productos.nombre}}</b-card-title>
       <b-card-text>
@@ -32,6 +36,9 @@
     </b-col>
     </b-row>
   </b-card>
+  
+  </b-row>
+  </b-container>
 </div>
 </template>
 <script>
@@ -60,7 +67,7 @@ export default {
         },
      }
 }
-            
-
-    
 </script>
+<style scoped>
+
+</style>

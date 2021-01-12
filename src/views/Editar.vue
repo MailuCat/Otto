@@ -17,7 +17,7 @@
             <tbody>
                 <tr v-for="(productos,index) in enviarProductos" :key="index" >
                      <td>{{index+1}}</td>
-                    <td>{{productos.codigo}}</td>
+                    <td>{{productos.nombre}}</td>
                     <td>{{productos.stock}}</td>
                     <td>{{productos.precio}}</td>
                      <td> <b-button v-b-modal.modal-center>Launch centered modal</b-button></td>
@@ -61,17 +61,16 @@ import {mapGetters} from 'vuex';
             
                 data() {
                     return {
-                        item: [],
                         nombre:'',
                         stock: '',
                         precio: '',
-
+                        item: [],
+                        
                       }
                 },
     computed: {
     ...mapGetters(['enviarProductos'])
     },
-
      methods: {
       eliminando(item){
               this.$store.dispatch('borrandoProductos', item.idDoc).then(()=>{
@@ -90,7 +89,7 @@ import {mapGetters} from 'vuex';
                 this.$store.dispatch('actualizandoProducto',datos);
                 
             } else {
-                console.log("No se puede actualizar el paciente");
+                console.log("No se puede actualizar");
             }
         }
     },
