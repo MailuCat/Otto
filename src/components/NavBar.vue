@@ -19,8 +19,8 @@
                     <template #button-content>
                     <em>Usuarior</em>
                     </template>
-                        <router-link :to="{name: 'Loguin'}">Loguin</router-link>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                         <b-dropdown-item :to="{name: 'Loguin'}">Loguin</b-dropdown-item>
+                        <b-dropdown-item  @click="salidaOut">Sign Out</b-dropdown-item>
                  </b-nav-item-dropdown>
             </b-navbar-nav>
               <b-button @click="$bvModal.show('modal-scoped')" >Agregar Juguetes</b-button>
@@ -78,6 +78,8 @@
 </template>
 <script>
 import {mapGetters} from 'vuex';
+import firebase from 'firebase';
+import Swal from 'sweetalert2';
 export default {
         name: 'NavBar',
        data() {
@@ -108,10 +110,29 @@ export default {
                 console.log("No se puede agregar curso");
             }
         },
-      
-},
-    
+              salidaOut(){
+        firebase.auth().signOut().then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Logout con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          setTimeout(()=>{
+            this.$router.push({name: 'Login'}).catch(error => {
+                console.info(error.message)
+            });
+          },1000)
+        }).catch((error) => {
+          console.error(error);
+        });
+      }
+    },
 }
+      
+
+    
 </script>
 <style>
    
