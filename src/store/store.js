@@ -31,7 +31,7 @@ export default new Vuex.Store({
               precio: element.data().precio,
               stock: element.data().stock,
               imagen: element.data().imagen,
-              idProductos: element.data().id,
+              id: element.data().id,
               idDoc: element.id,
             })
           });
@@ -41,8 +41,21 @@ export default new Vuex.Store({
     agregandoProducto(context,productoNuevo){
       return firebase.firestore().collection('productos').add({...productoNuevo});
     },
-    borrandoProductos(context,id){
-      firebase.firestore().collection('productos').doc(context.state.id).collection('productos').doc(id).delete().then(()=>console.log("producto borrado")).catch(error => console.error(error));
+    borrandoProductos(context,idDoc){
+      return firebase.firestore().collection('productos').doc(idDoc).delete();
     },
-  },
+    actualizandoProducto(context,datos){
+      
+        // el update se utiliza para actualizar un documento en especifico, se debe indicar cual es el id del documento. Se puede pasar uno o todos los valores a actualizar, no borrar los valores que no se actualicen.
+        firebase.firestore().collection('productos').doc(datos.idDoc).update({
+          nombre: datos.nombre,
+          stock: datos.stock,
+          precio: datos.precio,
+         
+        })
+          .then(()=> console.log("Se actualizo"))
+          .catch(error => console.error(error));
+      },
+    }
+  
 })

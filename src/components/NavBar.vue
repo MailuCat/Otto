@@ -8,7 +8,10 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <router-link to="/">Home</router-link>
+        <router-link to="/">Home</router-link></b-navbar-nav>
+         <b-nav-item :to="{name: 'Editar'}">Editar</b-nav-item>
+      <b-navbar-nav>
+        
         </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -16,8 +19,7 @@
         
         <b-nav-item-dropdown right>
            
-    
-          <!-- Using 'button-content' slot -->
+              <!-- Using 'button-content' slot -->
           <template #button-content>
             <em>Usuarior</em>
           </template>
@@ -66,7 +68,7 @@
       <b-button @click="hide()">Hide Modal</b-button>
     </template>
 
-    <template #modal-footer="{ validate, cancel, hide }">
+    <template #modal-footer="{validate, cancel, hide }">
       <b></b>
       <!-- Emulate built in modal footer ok and cancel button actions -->
       <b-button size="sm" variant="success"  @click.prevent="agregandoProducto">

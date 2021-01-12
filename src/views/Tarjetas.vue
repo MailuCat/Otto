@@ -22,11 +22,11 @@
 
     <b-list-group flush >
       <b-list-group-item>Código : {{productos.codigo}} </b-list-group-item>
-      <b-list-group-item>Productos {{productos.stock}}</b-list-group-item>
-      <b-list-group-item>Precio :{{productos.precio}}</b-list-group-item>
+      <b-list-group-item>Productos: {{productos.stock}}</b-list-group-item>
+      <b-list-group-item>Precio :{productos.precio}}</b-list-group-item>
     </b-list-group>
     <b-card-body>
-      <button type="button" class="btn btn-danger" @click="eliminando(productos.idDoc)">Eliminar</button>
+      <button type="button" class="btn btn-danger" @click="eliminando(productos)">Eliminar</button>
   
      </b-card-body>
     </b-col>
@@ -43,25 +43,24 @@ export default {
     name: 'Tarjetas',
     data() {
       return {
-      idProductos: '',
-          nombre: '',
-            codigo: '',
-            stock: '',
-            precio:'',
-            imagen: ''
-        }
-       },
-    
+      fields: ['nombre', 'codigo',  'producto', 'precio', 'imagen'],
+            item: []
+      }
+    },
   
 
     computed: {
     ...mapGetters(['enviarProductos'])
     },
      methods: {
-      eliminando(productos){
-            this.$store.dispatch('borrandoProductos',productos, idDoc);
+      eliminando(item){
+              this.$store.dispatch('borrandoProductos', item.idDoc).then(()=>{
+                console.log('eliminado');
+            });
         },
      }
-            
 }
+            
+
+    
 </script>
