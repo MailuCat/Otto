@@ -1,4 +1,3 @@
-102 sloc) 3.79 KB
 <template>
     <div class="container my-5">
         <h2>Administrando Inventario</h2>
@@ -21,37 +20,37 @@
                     <td>{{productos.nombre}}</td>
                     <td>{{productos.stock}}</td>
                     <td>{{productos.precio}}</td>
-                     <td> <b-button v-b-modal.modal-center>Editar</b-button></td>
+                     <td><b-button id="show-btn" @click="showModal">Open Modal</b-button></td>
                     <td><button type="button" class="btn btn-danger" @click="eliminando(productos)">Eliminar</button></td>
                   </tr>  
             </tbody>
         </table>
-        <b-modal id="modal-center" centered title="">
-
-        <form @submit.prevent="actualizarProducto">
-          <p class="my-4">Editando </p>
-       
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" v-model="nombre">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Stock</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" v-model="stock">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Precio</label>
-                    <input type="text" class="form-control" id="edad" v-model="precio">
-                </div>
+        <div>
+            <b-modal ref="my-modal" hide-footer title="">
+      <div class="d-block text-center">
+        <h3>¿Quieres actualizar el producto?</h3>
+        <form >
+                <b-form-group label="Name"  label-for="name-input"
+                >
+                <b-form-input id="name-input"  v-model="nombre"  required
+                   ></b-form-input>
+                </b-form-group>
+                                
+                 <label>Stock </label>
+                   <b-form-input v-model="stock"   type="number"    name="stock"  ></b-form-input>
                 
-            <td><button type="submit" class="btn btn-info" >Editar</button></td>
-            </form>
-            </b-modal>
-       
-       
-        </div>
+                <label >Precio </label>
+                  <b-form-input v-model="precio" type="number"  name="precio"></b-form-input>
+        </form>
+      </div>
     
-  </div>
+      <b-button class="mt-3" variant="outline-danger" block  @click.prevent="actualizarProducto">Aceptar</b-button>
+      <b-button class="mt-2" variant="outline-warning" block @click="toggleModal">Cancelar</b-button>
+    
+    </b-modal>
+        </div>    
+        </div>
+    </div>
 </template>
 <script>
 import {mapGetters} from 'vuex';
@@ -59,7 +58,7 @@ import Swal from 'sweetalert2';
 
         export default {
             name: 'ListaProductos',
-            props: ['id'],
+           
             
                 data() {
                     return {
@@ -96,9 +95,7 @@ import Swal from 'sweetalert2';
                 }
             })
         },
-},
-
-        actualizarProducto(){
+    actualizarProducto(){
             if (this.nombre  && this.stock  && this.precio) {
                 let datos = {
                     nombre: this.nombre,
@@ -106,13 +103,36 @@ import Swal from 'sweetalert2';
                     precio: this.precio,
                     idDoc: this.id
                 };
-                this.$store.dispatch('actualizandoProducto',datos);
-                
+                 this.$store.dispatch('actualizandoProducto',datos).then(()=>{
+                    Swal.fire(
+                        'Muy Bien',
+                        'Curso Moduficado',
+                        'success'
+                    );
+                    this.reset();
+                });
             } else {
-                console.log("No se puede actualizar");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Existen errores en los datos',
+                    footer: 'Intenta nuevamente'
+                });
             }
         },
-    
+        
+                showModal() {
+                    this.$refs['my-modal'].show()
+                 },
+                hideModal() {
+                this.$refs['my-modal'].hide()
+                },
+                toggleModal() {
+                // We pass the ID of the button that we want to return focus to
+                // when the modal has hidden
+                this.$refs['my-modal'].toggle('#toggle-btn')
+                },
+     
     mounted(){
         let datos = this.enviarProductos.find(productos => productos.idDoc === this.id);
         if (datos !== undefined) {
@@ -125,7 +145,5 @@ import Swal from 'sweetalert2';
             
         }
     }
-}
-
-    
+}}   
 </script>
