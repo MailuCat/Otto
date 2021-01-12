@@ -34,7 +34,7 @@
           <b-button size="sm" variant="outline-danger" @click="close()">
             Cerrar
             </b-button>
-            <h5>Forumulario para agregar juguetes</h5>
+            <h5>¿Desea agregar este juguete?</h5>
       </template>
 
         <template #default="{  }">
@@ -62,13 +62,13 @@
       <b></b>
       <!-- Emulate built in modal footer ok and cancel button actions -->
           <b-button size="sm" variant="success"  @click.prevent="agregandoProducto">
-              OK
+              Aceptar
           </b-button>
           <b-button size="sm" variant="danger" @click="cancel()">
-            Cancel
+            Cancelar
           </b-button>
       <!-- Button with custom close trigger value -->
-          <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
+          <b-button size="sm" variant="outline-secondary" @click="hide('Volver')">
             Forget it
           </b-button>
         </template>
@@ -105,9 +105,19 @@ export default {
                     imagen: this.imagen
                     
                 };
-                this.$store.dispatch('agregandoProducto',datos);
-            } else {
-                console.log("No se puede agregar curso");
+                this.$store.dispatch('agregandoProducto',datos).then(()=>{
+                  Swal.fire(
+                        'Producto agregado',
+                       
+                    );
+                    this.reset();
+                });
+            } else { Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Falta un dato',
+                    footer: 'Intenta nuevamente'
+                });
             }
         },
               salidaOut(){

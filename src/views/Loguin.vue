@@ -12,12 +12,13 @@
         <input type="password" class="form-control" v-model="password" id="exampleInputPassword1">
       </div>
       <button type="submit" class="btn btn-primary">Ingresar</button>
-      <a type="button" class="btn btn-primary mx-4" @click="recuperarEmail">Olvide mi Contraseña</a>
+      <a type="button" class="btn btn-primary mx-4" @click="recuperarEmail">Olvide mi contraseña</a>
     </form>
   </div>
 </template>
 
 <script>
+
 import firebase from 'firebase';
 export default {
   name: 'Loguin',
@@ -49,7 +50,7 @@ export default {
         console.log("no se puede");
       }
     },
-    recuperarEmail(){
+     recuperarEmail(){
       // metodo que permite enviar al correo un enlace para reiniciar contraseña (el correo debe ser real)
       firebase.auth().sendPasswordResetEmail(this.email).then(() => {
         console.log("correo enviado.");

@@ -1,3 +1,4 @@
+102 sloc) 3.79 KB
 <template>
     <div class="container my-5">
         <h2>Administrando Inventario</h2>
@@ -20,15 +21,15 @@
                     <td>{{productos.nombre}}</td>
                     <td>{{productos.stock}}</td>
                     <td>{{productos.precio}}</td>
-                     <td> <b-button v-b-modal.modal-center>Launch centered modal</b-button></td>
+                     <td> <b-button v-b-modal.modal-center>Editar</b-button></td>
                     <td><button type="button" class="btn btn-danger" @click="eliminando(productos)">Eliminar</button></td>
                   </tr>  
             </tbody>
         </table>
-        <b-modal id="modal-center" centered title="BootstrapVue">
+        <b-modal id="modal-center" centered title="">
 
         <form @submit.prevent="actualizarProducto">
-          <p class="my-4">Editar</p>
+          <p class="my-4">Editando </p>
        
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nombre</label>
@@ -43,9 +44,8 @@
                     <input type="text" class="form-control" id="edad" v-model="precio">
                 </div>
                 
-            <td><button type="button" class="btn btn-info" >Editar</button></td>
+            <td><button type="submit" class="btn btn-info" >Editar</button></td>
             </form>
-            <button type="submit" class="btn btn-info" @click="$router.go(-1)">Regresar</button>
             </b-modal>
        
        
@@ -55,6 +55,8 @@
 </template>
 <script>
 import {mapGetters} from 'vuex';
+import Swal from 'sweetalert2';
+
         export default {
             name: 'ListaProductos',
             props: ['id'],
@@ -73,13 +75,31 @@ import {mapGetters} from 'vuex';
     },
      methods: {
       eliminando(item){
-              this.$store.dispatch('borrandoProductos', item.idDoc).then(()=>{
-                console.log('eliminado');
-            });
+            Swal.fire({
+                title: '<span class="font-weight-regular">¿Seguro que deseas eliminar?</span>',
+                text: 'No se puede volver a recuperar',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#2196F3',
+                cancelButtonColor: '#F44336',
+                cancelButtonText: '<span style="color: white"><strong>Cancelar</strong></span>',
+                confirmButtonText: '<span style="color: white"><strong>Si, borrar!</strong></span>'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$store.dispatch('borrandoProductos',item.idDoc).then(()=>{
+                        Swal.fire(
+                            'Eliminado',
+                            'El Producto fue eliminado',
+                            'success'
+                        )
+                    });
+                }
+            })
         },
-         methods: {
+},
+
         actualizarProducto(){
-            if (this.nombre.length >= 4 && this.stock >=0 && this.precio) {
+            if (this.nombre  && this.stock  && this.precio) {
                 let datos = {
                     nombre: this.nombre,
                     stock: this.stock,
@@ -91,8 +111,8 @@ import {mapGetters} from 'vuex';
             } else {
                 console.log("No se puede actualizar");
             }
-        }
-    },
+        },
+    
     mounted(){
         let datos = this.enviarProductos.find(productos => productos.idDoc === this.id);
         if (datos !== undefined) {
@@ -101,13 +121,11 @@ import {mapGetters} from 'vuex';
             this.precio = datos.precio;
             
         } else {
-            console.log("No existe el paciente");
-            setTimeout(()=>{
-                this.$router.push({name: 'productos'});
-            },500);
+            console.log("No existe");
+            
         }
     }
 }
-}
+
     
 </script>
