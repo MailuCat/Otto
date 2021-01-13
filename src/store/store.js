@@ -7,7 +7,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   
   state: {
-     productos:[]
+    user: null,
+     productos:[],
+     
   },
    getters: {
     enviarProductos (state){
@@ -17,11 +19,13 @@ export default new Vuex.Store({
   mutations: {
     mutandoProductos (state, productosLocal) {
         state.productos= productosLocal
-    }
+    },
+    mutandoUser(state,usuario){
+      state.user = usuario;
+    },
   },
   actions: {
     traerProductosDb({commit}){
-
       firebase.firestore().collection('productos').onSnapshot( result =>{
         let productosLocal = [];
         result.forEach (element => {
@@ -45,17 +49,17 @@ export default new Vuex.Store({
       return firebase.firestore().collection('productos').doc(idDoc).delete();
     },
     actualizandoProducto(context,datos){
-      
-        // el update se utiliza para actualizar un documento en especifico, se debe indicar cual es el id del documento. Se puede pasar uno o todos los valores a actualizar, no borrar los valores que no se actualicen.
         firebase.firestore().collection('productos').doc(datos.idDoc).update({
           nombre: datos.nombre,
           stock: datos.stock,
           precio: datos.precio,
-         
         })
-          .then(()=> console.log("Se actualizo"))
-          .catch(error => console.error(error));
+        .then(()=> console.log("Se actualizo"))
+        .catch(error => console.error(error));
+      },
+      dataUser({commit},usuario){
+        commit('mutandoUser', usuario);
       },
     }
   
-})
+}) 

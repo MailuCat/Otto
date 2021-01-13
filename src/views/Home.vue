@@ -1,14 +1,9 @@
 <template>
   <div>
-  
-        <Tarjetas/>
-
-        
+         <Tarjetas/>
   </div>
 </template>
 <script>
-
-
 import Tarjetas from './Tarjetas.vue'
   export default {
   name: 'Home',
@@ -16,7 +11,6 @@ import Tarjetas from './Tarjetas.vue'
     
     Tarjetas,
 
-    
-  }
+}
 }
 </script>

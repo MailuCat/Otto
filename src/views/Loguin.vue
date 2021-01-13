@@ -18,8 +18,8 @@
 </template>
 
 <script>
-
 import firebase from 'firebase';
+import Swal from 'sweetalert2';
 export default {
   name: 'Loguin',
   data() {
@@ -43,6 +43,12 @@ export default {
           this.$router.push({name: 'Home'}); // enviamos al usuario a la vista de home
         })
         .catch((error) => {
+          Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Existen errores en los datos',
+                        footer: 'Intenta nuevamente'
+                    });
           console.error(error.code);
           console.error(error.message);
         });
