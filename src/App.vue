@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div id="app">
+<div id="app">
    <nav-bar></nav-bar>
     </div>
     <router-view/>
@@ -8,17 +8,20 @@
 </template>
 <script>
 import NavBar from '@/components/NavBar.vue';
-import firebase from 'firebase';
+
 
 export default {
   components:  {NavBar},
   name: 'App',
    mounted() {
-    
     this.$store.dispatch('traerProductosDb');
   },
 }
 </script>
 <style>
+#app {
+  padding: 0;
+  margin: 0;
+}
 
 </style>

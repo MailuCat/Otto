@@ -8,15 +8,15 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: {name: 'Loguin'}
+    redirect: {name: 'Login'}
   },
   {
-    path: '/loguin',
-    name: 'Loguin',
+    path: '/login',
+    name: 'Login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Loguin.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
   {
     path: '/home',
@@ -41,8 +41,19 @@ const routes = [
     },
   },
   {
+    path: '/agregar',
+    name: 'Agregar',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "editar" */ '../views/Agregar.vue'),
+    meta: {
+      requiresAuth: true
+    },
+  },
+  {
     path: '*',
-    redirect: {name: 'Loguin'}
+    redirect: {name: 'Login'}
   }
 
 ]
@@ -55,7 +66,9 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next)=>{
   let usuario = firebase.auth().currentUser; // traemos la información del usuario conextado en el momento, si no hay usuario, será null.
-  let login = to.matched.some(result => result.meta.requiresAuth); //buscamos cual ruta tiene activo un meta
+  let login = to.matched.some(result => result.meta.requiresAuth);
+    
+  //buscamos cual ruta tiene activo un meta
 
   if (!usuario && login) {
     next({name: 'Login'}); // si la ruta tiene activo el meta y no hay usuario conectado en el sistema, no se deje ingresar a la ruta y se envia a login.

@@ -1,19 +1,32 @@
 <template>
   <div class="my-5 container">
-    <h1>Login</h1>
-    <form @submit.prevent="loginUser">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" v-model="password" id="exampleInputPassword1">
-      </div>
-      <button type="submit" class="btn btn-primary">Ingresar</button>
-      <a type="button" class="btn btn-primary mx-4" @click="recuperarEmail">Olvide mi contraseña</a>
-    </form>
+     <b-row>
+        <b-col></b-col>
+        <b-col  md="6">
+        <h1>Iniciar sesión</h1>
+              <form @submit.prevent="loginUser">
+                <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
+                      <div id="emailHelp" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" v-model="password" id="exampleInputPassword1">
+                </div>
+                    <b-row>
+                      <b-col>
+                      <b-button type="submit" class="btn btn-warning"  >Entra</b-button>
+                      </b-col>
+                      <b-col>
+                      <a type="button" class="btn btn-secondary" @click="recuperarEmail">Olvide mi contraseña</a>
+                      </b-col> 
+                      <b-col></b-col>                 
+                   </b-row>
+               </form>
+        </b-col>
+        <b-col></b-col>
+    </b-row>
   </div>
 </template>
 
@@ -67,3 +80,17 @@ export default {
   },
 }
 </script>
+<style scoped>
+h1{
+  margin-bottom: 2em;
+  font-size: 2em;
+  text-align: center;
+}
+a{
+  margin-left: 0 !important;
+  font-size: 12px;
+  
+}
+</style>
+
+

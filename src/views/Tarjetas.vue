@@ -1,13 +1,13 @@
 <template>
-    <div >
-        <b-container class="m-5">
-              <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 m-auto">
-                  <b-card v-for="(productos,index) in enviarProductos" :key="index" no-body class="overflow-hidden m-4 border-warning"  style="max-width: 540px;">
+  
+        <b-container  class="bv-example-row">>
+         <div class=" row justify content-md-center">
+           <b-card v-for="(productos,index) in enviarProductos" :key="index" no-body class="overflow-hidden m-4 border-warning"  style="max-width: 400px;">
                       <b-row no-gutters>
                         <b-col md="6">
-                          <b-card-img :src="productos.imagen" alt="Image" class="rounded-0"></b-card-img>
-                      </b-col>
-                      <b-col     >
+                          <b-card-img :src="productos.imagen" alt="Image"  class="rounded-0  .mx-auto d-block"></b-card-img>
+                         </b-col>
+                         <b-col     >
                             <template #header>
                               <h4 class="mb-0">Hello World</h4>
                             </template>
@@ -33,20 +33,22 @@
                       </b-col>
                   </b-row>
               </b-card>
-          </div> 
+         </div>        
       </b-container>
-  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
+
 
 export default {
     name: 'Tarjetas',
     data() {
         return {
         fields: ['nombre', 'codigo',  'producto', 'precio', 'imagen'],
-            item: []
+            item: [],
+             
         }
     },
   
@@ -54,12 +56,13 @@ export default {
         ...mapGetters(['enviarProductos'])
     },
      methods: {
-      eliminando(item){
+        eliminando(item){
               this.$store.dispatch('borrandoProductos', item.idDoc).then(()=>{
                 console.log('eliminado');
             });
         },
-     }
+  }
+
 }
 </script>
 <style scoped>
